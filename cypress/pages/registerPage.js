@@ -1,63 +1,61 @@
 // cypress/pages/RegisterPage.js
 
 class RegisterPage {
+    elements = {
+      firstNameInput: () => cy.get("#input-firstname"),
+      lastNameInput: () => cy.get("#input-lastname"),
+      emailInput: () => cy.get("#input-email"),
+      telephoneInput: () => cy.get("#input-telephone"),
+      passwordInput: () => cy.get("#input-password"),
+      confirmPasswordInput: () => cy.get("#input-confirm"),
+      subscribeYesRadio: () => cy.get('input[type="radio"][name="newsletter"][value="1"]'),
+      subscribeNoRadio: () => cy.get('input[type="radio"][name="newsletter"][value="0"]'),
+      privacyPolicyCheckbox: () => cy.get('input[type="checkbox"][name="agree"]'),
+      continueButton: () => cy.get('input[type="submit"][value="Continue"]'),
+    };
+  
     visit() {
-      cy.visit('https://naveenautomationlabs.com/opencart/index.php?route=account/register');
+      cy.visit("/?route=account/register");
     }
   
-    getFirstNameInput() {
-      return cy.get('#input-firstname');
+    typeFirstName(firstName) {
+      this.elements.firstNameInput().type(firstName);
     }
   
-    getLastNameInput() {
-      return cy.get('#input-lastname');
+    typeLastName(lastName) {
+      this.elements.lastNameInput().type(lastName);
     }
   
-    getEmailInput() {
-      return cy.get('#input-email');
+    typeEmail(email) {
+      this.elements.emailInput().type(email);
     }
   
-    getTelephoneInput() {
-      return cy.get('#input-telephone');
+    typeTelephone(telephone) {
+      this.elements.telephoneInput().type(telephone);
     }
   
-    getPasswordInput() {
-      return cy.get('#input-password');
+    typePassword(password) {
+      this.elements.passwordInput().type(password);
     }
   
-    getConfirmPasswordInput() {
-      return cy.get('#input-confirm');
+    typeConfirmPassword(confirmPassword) {
+      this.elements.confirmPasswordInput().type(confirmPassword);
     }
   
-    getSubscribeYesRadio() {
-      return cy.get('input[type="radio"][name="newsletter"][value="1"]');
+    subscribeToNewsletter(subscribe) {
+      if (subscribe) {
+        this.elements.subscribeYesRadio().click();
+      } else {
+        this.elements.subscribeNoRadio().click();
+      }
     }
   
-    getSubscribeNoRadio() {
-      return cy.get('input[type="radio"][name="newsletter"][value="0"]');
-    }
-  
-    getPrivacyPolicyCheckbox() {
-      return cy.get('input[type="checkbox"][name="agree"]');
-    }
-  
-    getContinueButton() {
-      return cy.get('input[type="submit"][value="Continue"]');
-    }
-  
-    fillRegistrationForm(user) {
-      this.getFirstNameInput().type(user.firstName);
-      this.getLastNameInput().type(user.lastName);
-      this.getEmailInput().type(user.email);
-      this.getTelephoneInput().type(user.telephone);
-      this.getPasswordInput().type(user.password);
-      this.getConfirmPasswordInput().type(user.confirmPassword);
-      this.getSubscribeYesRadio().check();
-      this.getPrivacyPolicyCheckbox().check();
+    agreeToPrivacyPolicy() {
+      this.elements.privacyPolicyCheckbox().click();
     }
   
     submitRegistrationForm() {
-      this.getContinueButton().click();
+      this.elements.continueButton().click();
     }
   }
   
